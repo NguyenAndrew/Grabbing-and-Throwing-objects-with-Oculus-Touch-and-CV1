@@ -3,8 +3,9 @@
 A quick demo showing grabbing objects with the Oculus Touch. 
 Latest build uses Unity 5.5.0f3 Personal Edition.
 
-Note: For a full fledged game, I would recommend [NewtonVR](https://github.com/TomorrowTodayLabs/NewtonVR).
 This demo moves objects through changing of x,y,z positions.
+
+Note: For a full fledged game, I would recommend [NewtonVR](https://github.com/TomorrowTodayLabs/NewtonVR).
 ## Installation
 
 Clone or download the repository.
