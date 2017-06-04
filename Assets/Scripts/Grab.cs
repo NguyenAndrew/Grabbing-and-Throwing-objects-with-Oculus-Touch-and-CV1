@@ -9,7 +9,14 @@ public class Grab : MonoBehaviour
     public LayerMask grabMask;
 
     private GameObject grabbedObject;
+
     public GameObject otherHand;
+
+    public Material closedHand;
+    public Material openHand;
+
+    // Used when changing material on the hand component
+    private Renderer componentRenderer;
 
     private bool grabbing;
 
@@ -18,6 +25,9 @@ public class Grab : MonoBehaviour
     void GrabObject()
     {
         grabbing = true;
+
+        // Sets closed hand material
+        componentRenderer.sharedMaterial = closedHand;
 
         // Using "Sphere Casting/Ray Casting" to grab object
         RaycastHit[] hits;
@@ -56,15 +66,17 @@ public class Grab : MonoBehaviour
                     otherHand.GetComponent<Grab>().DropObject();
 
                     // grabbing needs to be set, because the other hand is still grabbing the trigger.
-                    // Prevents the object bouncing back to the hand the object was taken from
+                    // Prevents the object bouncing back to the hand the object was taken from.
                     otherHand.GetComponent<Grab>().grabbing = true;
                 }
             }
 
             // Disables forces on the grabbed object
             grabbedObject.GetComponent<Rigidbody>().isKinematic = true;
+            
             // Moves grabbed object to position of hand 
-            grabbedObject.transform.position = transform.position;
+            grabbedObject.transform.position = transform.position;          
+            
             // Locks grabbed object to fist
             grabbedObject.transform.parent = transform;
         }
@@ -76,7 +88,7 @@ public class Grab : MonoBehaviour
 
         // Disables forces on the grabbed object
         grabbedObject.GetComponent<Rigidbody>().isKinematic = true;
-
+        
         // Moves grabbed object to position of hand 
         grabbedObject.transform.position = transform.position;
 
@@ -87,6 +99,9 @@ public class Grab : MonoBehaviour
     void DropObject()
     {
         grabbing = false;
+
+        // Sets open hand material
+        componentRenderer.sharedMaterial = openHand;
 
         // Check to see if we are actually grabbing an object
         if (grabbedObject != null)
@@ -115,6 +130,13 @@ public class Grab : MonoBehaviour
         return new Vector3(Mathf.DeltaAngle(0, deltaRotation.eulerAngles.x), Mathf.DeltaAngle(0, deltaRotation.eulerAngles.y), Mathf.DeltaAngle(0, deltaRotation.eulerAngles.z));
     }
 
+    // Start is called on script start
+    void Start()
+    {
+        componentRenderer = GetComponent<Renderer>();
+        componentRenderer.enabled = true;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -132,11 +154,10 @@ public class Grab : MonoBehaviour
             GrabObject();
         }
 
-
         // Release object on release of Hand Trigger
         if (grabbing && Input.GetAxis(buttonName) < 1)
         {
-            // Debug.log("Trigger was released!");
+            // Debug.Log("Trigger was released!");
             DropObject();
         }
     }
