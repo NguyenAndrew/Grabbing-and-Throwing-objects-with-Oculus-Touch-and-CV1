@@ -1,7 +1,7 @@
 # Grabbing and Throwing objects using Oculus Touch and CV1
 
 A quick demo showing grabbing objects with the Oculus Touch. 
-Latest build uses Unity 5.5.0f3 Personal Edition.
+Latest build uses Unity 5.6.1f1 Personal Edition (64bit).
 
 This demo moves objects through changing of x,y,z positions.
 
