@@ -82,20 +82,6 @@ public class Grab : MonoBehaviour
         }
     }
 
-    void GrabObject(GameObject grabbedObject)
-    {
-        grabbing = true;
-
-        // Disables forces on the grabbed object
-        grabbedObject.GetComponent<Rigidbody>().isKinematic = true;
-        
-        // Moves grabbed object to position of hand 
-        grabbedObject.transform.position = transform.position;
-
-        // Locks grabbed object to fist
-        grabbedObject.transform.parent = transform;
-    }
-
     void DropObject()
     {
         grabbing = false;
