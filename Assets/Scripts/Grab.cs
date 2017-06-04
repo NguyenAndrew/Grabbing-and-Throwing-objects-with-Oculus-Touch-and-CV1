@@ -4,7 +4,7 @@ using System.Collections;
 public class Grab : MonoBehaviour
 {
     public OVRInput.Controller controller;
-    public string buttonName;
+    public string grabButton;
     public float grabRadius;
     public LayerMask grabMask;
 
@@ -134,14 +134,14 @@ public class Grab : MonoBehaviour
         }
 
         // Grabs object on push of Hand Trigger
-        if (!grabbing && Input.GetAxis(buttonName) == 1)
+        if (!grabbing && Input.GetAxis(grabButton) == 1)
         {
             // Debug.Log("Trigger is being pushed.");
             GrabObject();
         }
 
         // Release object on release of Hand Trigger
-        if (grabbing && Input.GetAxis(buttonName) < 1)
+        if (grabbing && Input.GetAxis(grabButton) < 1)
         {
             // Debug.Log("Trigger was released!");
             DropObject();
